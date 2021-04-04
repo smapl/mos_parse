@@ -7,12 +7,14 @@ from .utils import edit_text, get_new_id
 from .header import HEADER
 
 
-def get_comms(id_new: str) -> str:
-    logger.info("get comms")
-    resp = requests.get("https://echo.msk.ru/elements/2564349/comments_scroll.html")
+def get_comms(id_news: str) -> str:
+
+    resp = requests.get(f"https://echo.msk.ru/elements/{id_news}/comments_scroll.html")
     soup = BeautifulSoup(resp.text, "html5lib")
+
     comments = soup.find("div", {"class": "commBlock"}).text
     comments = edit_text(comments)
+
     logger.info(comments)
 
     return comments
