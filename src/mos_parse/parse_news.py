@@ -3,9 +3,14 @@ import json
 
 from bs4 import BeautifulSoup
 from loguru import logger
+from pymongo import MongoClient
 
 from .utils import edit_text, get_new_id
 from .header import HEADER
+
+client = MongoClient()
+db = client["echo_of_moscow"]
+collection = db["news"]
 
 
 def get_comms(id_news: str) -> tuple:
@@ -24,13 +29,13 @@ def get_comms(id_news: str) -> tuple:
             author = comment.find("strong", {"class": "name"}).text
             author = edit_text(author)
         except:
-            author = None
+            author = "None"
 
         try:
             data = comment.find("p", {"class": "commtext"}).text
             data = edit_text(data)
         except:
-            data = None
+            data = "None"
 
         dict_comments[author] = data
 
@@ -57,4 +62,8 @@ def parse(url: str):
     else:
         news["comments"] = "empty"
 
-    logger.info(news)
+    try:
+        collection.insert_one(news)
+
+    except Exception as ex:
+        logger.error(ex)
