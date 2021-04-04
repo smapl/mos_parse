@@ -1,5 +1,9 @@
-from mos_parse.parse_news import parse, get_comms
+from mos_parse.parse_news import parse
+from mos_parse.parse_links import links
 
 
 if __name__ == "__main__":
-    parse("https://echo.msk.ru/news/2564349-echo.html")
+
+    active_links = links()
+    for link in active_links:
+        parse(link)
