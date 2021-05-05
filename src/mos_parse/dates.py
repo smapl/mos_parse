@@ -1,6 +1,6 @@
 DATES = {
     "01": [str(day) for day in range(1, 32)],
-    "02": [str(day) for day in range(1, 29)],
+    "02": [str(day) for day in range(1, 30)],
     "03": [str(day) for day in range(1, 32)],
     "04": [str(day) for day in range(1, 31)],
     "05": [str(day) for day in range(1, 32)],

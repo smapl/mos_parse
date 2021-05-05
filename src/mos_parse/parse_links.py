@@ -18,7 +18,7 @@ def links() -> list:
     logger.info("Starting generating")
     for month in DATES:
         for day in tqdm(DATES[month]):
-            url = f"https://echo.msk.ru/news/own/2020/{month}/{day}/"
+            url = f"https://echo.msk.ru/news/2020/{month}/{day}/"
 
             try:
                 resp = requests.get(url)
@@ -34,5 +34,7 @@ def links() -> list:
                 collection.insert_one({"url": url})
                 logger.error(ex)
                 continue
+
+        break
 
     return links
